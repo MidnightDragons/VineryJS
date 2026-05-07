@@ -7,7 +7,8 @@ modId="vineryjs"
 version="${mod_version}"
 displayName="${mod_name}"
 authors="MidnightKittens"
-description='''KubeJS integration for Vinery.'''
+description="KubeJS integration for Vinery."
+logoFile = "vineryjs.png"
 
 [[mixins]]
 config="vineryjs.mixins.json"
