@@ -1,9 +1,7 @@
 package org.midnight.vineryjs;
 
-import dev.latvian.mods.kubejs.KubeJSPlugin;
-import dev.latvian.mods.kubejs.event.EventGroup;
-import dev.latvian.mods.kubejs.event.EventHandler;
+import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
+import org.midnight.vineryjs.event.VineryEvents;
 
-public class VineryJSPlugin extends KubeJSPlugin {
-
+public class VineryJSPlugin implements KubeJSPlugin {
 }

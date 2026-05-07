@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "org.midnight.vineryjs.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"DrinkBlockItemMixin"
+	],
+	"client": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

@@ -65,14 +65,10 @@ configurations {
 }
 
 dependencies {
-    // NeoForge
     implementation "net.neoforged:neoforge:${neo_version}"
-
-    // Vinery
     implementation files('libs/letsdo-vinery-neoforge-1.5.3.jar')
-
-    // KubeJS
-    compileOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 tasks.withType(ProcessResources).configureEach {

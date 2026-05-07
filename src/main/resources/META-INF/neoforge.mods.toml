@@ -9,6 +9,9 @@ displayName="${mod_name}"
 authors="MidnightKittens"
 description='''KubeJS integration for Vinery.'''
 
+[[mixins]]
+config="vineryjs.mixins.json"
+
 [[dependencies.vineryjs]]
 modId="neoforge"
 type="required"
