@@ -1,30 +1,22 @@
 package org.midnight.vineryjs.builder;
 
+import dev.latvian.mods.kubejs.item.ItemBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
 
-public class WineBuilder {
-    public final ResourceLocation id;
+public class WineBuilder extends ItemBuilder {
     public ResourceLocation effect = null;
-    public String displayName = null;
-    public int stackSize = 1;
     public int duration = 0;
     public int amplifier = 0;
     public boolean scaleWithAge = false;
     public DrinkBlockItem.BottleSize bottleSize = DrinkBlockItem.BottleSize.BIG;
 
     public WineBuilder(ResourceLocation id) {
-        this.id = id;
-    }
-
-    public WineBuilder displayName(String name) {
-        this.displayName = name;
-        return this;
-    }
-
-    public WineBuilder stackSize(int size) {
-        this.stackSize = size;
-        return this;
+        super(id);
+        this.duration = 0;
+        this.amplifier = 0;
+        this.scaleWithAge = false;
+        this.bottleSize = DrinkBlockItem.BottleSize.SMALL;
     }
 
     public WineBuilder effect(String effectId, int duration, int amplifier) {

@@ -60,15 +60,7 @@ public class VineryJS {
 
         for (WineBuilder builder : pendingWines) {
             Item.Properties props = new Item.Properties()
-                    .food(new FoodProperties.Builder().alwaysEdible().build())
-                    .stacksTo(builder.stackSize);
-
-            if (builder.displayName != null) {
-                props = props.component(
-                        net.minecraft.core.component.DataComponents.ITEM_NAME,
-                        net.minecraft.network.chat.Component.literal(builder.displayName)
-                );
-            }
+                    .food(new FoodProperties.Builder().alwaysEdible().build());
 
             Block block = BuiltInRegistries.BLOCK.get(builder.id);
             DrinkBlockItem item = new DrinkBlockItem(block, props, builder.scaleWithAge, builder.bottleSize);
