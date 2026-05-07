@@ -31,6 +31,7 @@ public class VineryJS {
         modEventBus.addListener(this::loadComplete);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private void onRegisterBlocks(RegisterEvent event) {
         if (!event.getRegistryKey().equals(net.minecraft.core.registries.Registries.BLOCK)) return;
 

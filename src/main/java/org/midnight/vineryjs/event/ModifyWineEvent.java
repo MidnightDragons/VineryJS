@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
 import org.midnight.vineryjs.duck.DrinkBlockItemDuck;
 
+@SuppressWarnings("unused")
 public class ModifyWineEvent implements KubeEvent {
     public void modify(String itemId, String effectId, int duration, int amplifier, boolean scaleWithAge) {
         ResourceLocation itemRL = ResourceLocation.parse(itemId);

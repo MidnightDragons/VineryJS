@@ -7,6 +7,7 @@ import org.midnight.vineryjs.builder.WineBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class RegisterWineEvent implements KubeEvent {
     public final List<WineBuilder> builders = new ArrayList<>();
 

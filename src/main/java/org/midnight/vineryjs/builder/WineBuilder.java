@@ -1,22 +1,32 @@
 package org.midnight.vineryjs.builder;
 
-import dev.latvian.mods.kubejs.item.ItemBuilder;
+import dev.latvian.mods.kubejs.block.BlockBuilder;
+import dev.latvian.mods.rhino.util.ReturnsSelf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
 
-public class WineBuilder extends ItemBuilder {
-    public ResourceLocation effect = null;
-    public int duration = 0;
-    public int amplifier = 0;
-    public boolean scaleWithAge = false;
-    public DrinkBlockItem.BottleSize bottleSize = DrinkBlockItem.BottleSize.BIG;
+@SuppressWarnings({"unused", "UnusedReturnValue"})
+@ReturnsSelf
+public class WineBuilder extends BlockBuilder {
+    public transient ResourceLocation effect;
+    public transient int duration;
+    public transient int amplifier;
+    public transient boolean scaleWithAge;
+    public transient DrinkBlockItem.BottleSize bottleSize;
 
     public WineBuilder(ResourceLocation id) {
         super(id);
+        this.effect = null;
         this.duration = 0;
         this.amplifier = 0;
         this.scaleWithAge = false;
         this.bottleSize = DrinkBlockItem.BottleSize.SMALL;
+    }
+
+    @Override
+    public Block createObject() {
+        return new Block(createProperties());
     }
 
     public WineBuilder effect(String effectId, int duration, int amplifier) {
