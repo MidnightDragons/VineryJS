@@ -1,22 +1,18 @@
 package org.midnight.vineryjs.event;
 
 import dev.latvian.mods.kubejs.event.KubeEvent;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffect;
-import net.satisfy.vinery.core.item.DrinkBlockItem;
-import org.midnight.vineryjs.duck.DrinkBlockItemDuck;
+import org.midnight.vineryjs.builder.WineBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterWineEvent implements KubeEvent {
-    public void modify(String itemId, String effectId, int duration, int amplifier, boolean scaleWithAge) {
-        ResourceLocation itemRL = ResourceLocation.parse(itemId);
-        ResourceLocation effectRL = ResourceLocation.parse(effectId);
+    public final List<WineBuilder> builders = new ArrayList<>();
 
-        DrinkBlockItem item = (DrinkBlockItem) BuiltInRegistries.ITEM.get(itemRL);
-        Holder<MobEffect> effectHolder = BuiltInRegistries.MOB_EFFECT.getHolder(effectRL).orElseThrow();
-
-        item.setEffectSupplier(() -> effectHolder, duration, amplifier);
-        ((DrinkBlockItemDuck) item).setScaleDurationWithAge(scaleWithAge);
+    public WineBuilder create(String id) {
+        WineBuilder builder = new WineBuilder(ResourceLocation.parse(id));
+        builders.add(builder);
+        return builder;
     }
 }
