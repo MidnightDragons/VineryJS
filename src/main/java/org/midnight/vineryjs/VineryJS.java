@@ -45,8 +45,13 @@ public class VineryJS {
                             .instabreak(),
                     2
             );
-
             event.register(net.minecraft.core.registries.Registries.BLOCK, builder.id, () -> block);
+
+            net.minecraft.world.level.block.entity.BlockEntityType<?> bet =
+                    net.minecraft.world.level.block.entity.BlockEntityType.Builder
+                            .of(net.satisfy.vinery.core.block.entity.StorageBlockEntity::new, block)
+                            .build(null);
+            event.register(net.minecraft.core.registries.Registries.BLOCK_ENTITY_TYPE, builder.id, () -> bet);
         }
     }
 
@@ -54,13 +59,19 @@ public class VineryJS {
         if (!event.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) return;
 
         for (WineBuilder builder : pendingWines) {
+            Item.Properties props = new Item.Properties()
+                    .food(new FoodProperties.Builder().alwaysEdible().build())
+                    .stacksTo(builder.stackSize);
+
+            if (builder.displayName != null) {
+                props = props.component(
+                        net.minecraft.core.component.DataComponents.ITEM_NAME,
+                        net.minecraft.network.chat.Component.literal(builder.displayName)
+                );
+            }
+
             Block block = BuiltInRegistries.BLOCK.get(builder.id);
-            DrinkBlockItem item = new DrinkBlockItem(
-                    block,
-                    new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().build()),
-                    builder.scaleWithAge,
-                    builder.bottleSize
-            );
+            DrinkBlockItem item = new DrinkBlockItem(block, props, builder.scaleWithAge, builder.bottleSize);
 
             if (builder.effect != null) {
                 Holder<MobEffect> effectHolder = BuiltInRegistries.MOB_EFFECT.getHolder(builder.effect).orElseThrow();

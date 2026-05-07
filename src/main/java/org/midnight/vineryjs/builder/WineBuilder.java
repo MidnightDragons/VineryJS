@@ -6,6 +6,8 @@ import net.satisfy.vinery.core.item.DrinkBlockItem;
 public class WineBuilder {
     public final ResourceLocation id;
     public ResourceLocation effect = null;
+    public String displayName = null;
+    public int stackSize = 1;
     public int duration = 0;
     public int amplifier = 0;
     public boolean scaleWithAge = false;
@@ -13,6 +15,16 @@ public class WineBuilder {
 
     public WineBuilder(ResourceLocation id) {
         this.id = id;
+    }
+
+    public WineBuilder displayName(String name) {
+        this.displayName = name;
+        return this;
+    }
+
+    public WineBuilder stackSize(int size) {
+        this.stackSize = size;
+        return this;
     }
 
     public WineBuilder effect(String effectId, int duration, int amplifier) {
