@@ -12,6 +12,9 @@ description='''KubeJS integration for Vinery.'''
 [[mixins]]
 config="vineryjs.mixins.json"
 
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
 [[dependencies.vineryjs]]
 modId="neoforge"
 type="required"
