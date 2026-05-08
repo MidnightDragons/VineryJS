@@ -1,3 +1,5 @@
+backups/
+
 ### Gradle ###
 .gradle
 build/
@@ -40,4 +42,4 @@ repo/
 !**/src/**/repo/
 
 
-libs/**.jar
+libs/
