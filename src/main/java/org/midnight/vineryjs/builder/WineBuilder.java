@@ -4,6 +4,7 @@ import dev.latvian.mods.kubejs.block.BlockBuilder;
 import dev.latvian.mods.kubejs.block.entity.BlockEntityInfo;
 import dev.latvian.mods.kubejs.client.ModelGenerator;
 import dev.latvian.mods.kubejs.generator.KubeAssetGenerator;
+import dev.latvian.mods.kubejs.plugin.builtin.wrapper.StringUtilsWrapper;
 import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import dev.latvian.mods.rhino.util.ReturnsSelf;
@@ -15,24 +16,63 @@ import net.satisfy.vinery.core.item.DrinkBlockItem;
 @ReturnsSelf
 public class WineBuilder extends BlockBuilder {
     private final BlockEntityInfo info;
-    public final String id;
     public final ResourceLocation resourceID;
+    public transient String displayName;
+    public transient String itemTexture;
+    public transient String blockTexture;
+    public transient ResourceLocation itemParentModel;
+    public transient ResourceLocation blockParentModel;
     public transient ResourceLocation effect;
     public transient int duration;
     public transient int amplifier;
     public transient boolean scaleWithAge;
     public transient DrinkBlockItem.BottleSize bottleSize;
 
+    // Constructor with defaults
     public WineBuilder(String id) {
         super(ResourceLocation.parse(id));
         this.info = new BlockEntityInfo(this);
-        this.id = id;
         this.resourceID = ResourceLocation.parse(id);
+        this.displayName = StringUtilsWrapper.snakeCaseToTitleCase(resourceID.getPath());
+        this.itemTexture = resourceID.getNamespace() + "item/" + resourceID.getPath();
+        this.blockTexture = resourceID.getNamespace() + "block/" + resourceID.getPath();
+        this.itemParentModel = KubeAssetGenerator.GENERATED_ITEM_MODEL;
+        this.blockParentModel = ResourceLocation.parse("vinery:block/mellohi_wine");
         this.effect = null;
         this.duration = 0;
         this.amplifier = 0;
         this.scaleWithAge = false;
         this.bottleSize = DrinkBlockItem.BottleSize.BIG;
+    }
+
+    @Info("Sets the display name of the wine.")
+    public WineBuilder displayName(String name) {
+        displayName = name;
+        return this;
+    }
+
+    @Info("Sets the item texture of the wine.")
+    public WineBuilder itemTexture(String tex) {
+        itemTexture = tex;
+        return this;
+    }
+
+    @Info("Sets the block texture of the wine.")
+    public WineBuilder blockTexture(String tex) {
+        blockTexture = tex;
+        return this;
+    }
+
+    @Info("Sets the item model of the wine.")
+    public WineBuilder itemParentModel(String model) {
+        this.itemParentModel = ResourceLocation.parse(model);
+        return this;
+    }
+
+    @Info("Sets the block model of the wine.")
+    public WineBuilder blockParentModel(String model) {
+        this.blockParentModel = ResourceLocation.parse(model);
+        return this;
     }
 
     @Info("Sets the effect the wine gives the player when drank.")

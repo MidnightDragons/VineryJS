@@ -14,7 +14,7 @@ public class WineDrinkItem extends DrinkBlockItem {
     // Temporary while I find a way to fix placing wine bottles:
     @Override
     protected BlockState getPlacementState(BlockPlaceContext context) {
-        if (VineryJSConfig.ALLOW_PLACEMENT.get()) { return super.getPlacementState(context); }
+        if (VineryJSConfig.allowPlacement) { return super.getPlacementState(context); }
         return null;
     }
 }

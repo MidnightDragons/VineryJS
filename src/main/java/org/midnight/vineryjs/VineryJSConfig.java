@@ -5,16 +5,31 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class VineryJSConfig {
+    public static boolean debugLogging = false;
+    public static boolean allowPlacement = false;
+
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.BooleanValue ALLOW_PLACEMENT;
+    public static final ModConfigSpec.BooleanValue DEBUG_LOGGING;
 
     static {
+        BUILDER.push("debug");
+        DEBUG_LOGGING = BUILDER.comment("Enable debug logging")
+                .define("debugLogging", false);
+        BUILDER.pop();
+
         BUILDER.push("general");
         ALLOW_PLACEMENT = BUILDER.comment("Allow custom wines to be placed as blocks")
                 .define("allowPlacement", false);
         BUILDER.pop();
+
         SPEC = BUILDER.build();
+    }
+
+    public static void bake() {
+        debugLogging = DEBUG_LOGGING.get();
+        allowPlacement = ALLOW_PLACEMENT.get();
     }
 
     @SubscribeEvent

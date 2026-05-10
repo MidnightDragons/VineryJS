@@ -13,6 +13,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.satisfy.vinery.core.block.WineBottleBlock;
@@ -33,9 +34,16 @@ public class VineryJS {
 
     public VineryJS(IEventBus modEventBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, VineryJSConfig.SPEC);
+        modEventBus.addListener((ModConfigEvent e) -> VineryJSConfig.bake());
         modEventBus.addListener(this::onRegisterBlocks);
         modEventBus.addListener(this::onRegisterItems);
         modEventBus.addListener(this::loadComplete);
+    }
+
+    public static void log(String message) {
+        if (VineryJSConfig.debugLogging) {
+            System.out.println("[VineryJS] " + message);
+        }
     }
 
     private static BlockBehaviour.Properties getWineSettings() {
@@ -76,7 +84,7 @@ public class VineryJS {
                 ITEM.setEffectSupplier(() -> effectHolder, builder.duration, builder.amplifier);
             }
 
-            System.out.println("[VineryJS] " + builder + " created with id: " + builder.id);
+            VineryJS.log(builder + " created with id: " + builder.resourceID.getPath());
 
             event.register(Registries.ITEM, builder.resourceID, () -> ITEM);
         }
