@@ -67,6 +67,7 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+    implementation files('libs/architectury-13.0.8-neoforge.jar')
     implementation files('libs/letsdo-vinery-neoforge-1.5.3.jar')
     implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

@@ -14,7 +14,7 @@ public class RegisterWineEvent implements KubeEvent {
 
     public WineBuilder create(String id) {
         System.out.println("[VineryJS] create() called with id: " + id);
-        WineBuilder builder = new WineBuilder(ResourceLocation.parse(id));
+        WineBuilder builder = new WineBuilder(id);
         builders.add(builder);
         COLLECTED.add(builder);
         return builder;

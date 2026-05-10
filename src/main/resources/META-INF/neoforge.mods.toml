@@ -31,6 +31,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.vineryjs]]
+modId = "architectury"
+mandatory = true
+versionRange = "[13.0.8,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vineryjs]]
 modId="vinery"
 type="required"
 versionRange="[1.5.3,)"
