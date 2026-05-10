@@ -20,7 +20,7 @@ public class VineryJSConfig {
         BUILDER.pop();
 
         BUILDER.push("general");
-        ALLOW_PLACEMENT = BUILDER.comment("Globally allow custom wines to be placed as blocks")
+        ALLOW_PLACEMENT = BUILDER.comment("Globally allow custom wines to be placed as blocks\nCurrently broken!")
                 .define("universalAllowPlacement", false);
         BUILDER.pop();
 
