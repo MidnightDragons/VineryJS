@@ -42,7 +42,7 @@ public class WineBuilder extends BlockBuilder {
         this.effect = ResourceLocation.parse("minecraft:speed");
         this.duration = 60;
         this.amplifier = 0;
-        this.scaleWithAge = false;
+        this.scaleWithAge = true;
         this.bottleSize = DrinkBlockItem.BottleSize.SMALL;
         this.allowPlacement = false;
     }

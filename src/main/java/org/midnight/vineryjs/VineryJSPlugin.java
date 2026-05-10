@@ -4,7 +4,6 @@ import dev.latvian.mods.kubejs.client.LangKubeEvent;
 import dev.latvian.mods.kubejs.event.EventGroupRegistry;
 import dev.latvian.mods.kubejs.generator.KubeAssetGenerator;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
-import net.minecraft.resources.ResourceLocation;
 import org.midnight.vineryjs.builder.WineBuilder;
 import org.midnight.vineryjs.event.RegisterWineEvent;
 import org.midnight.vineryjs.event.VineryEvents;
@@ -31,7 +30,7 @@ public class VineryJSPlugin implements KubeJSPlugin {
 
             // noinspection CodeBlock2Expr
             generator.blockState(builder.resourceID, b -> {
-                b.simpleVariant("", ResourceLocation.parse("vineryjs:block/" + builder.id.getPath()));
+                b.simpleVariant("", builder.itemParentModel);
             });
         }
     }
