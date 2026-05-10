@@ -10,6 +10,7 @@ public class WineDrinkItem extends DrinkBlockItem {
         super(block, settings, scaleDurationWithAge, bottleSize);
     }
 
+    // Temporary while I find a way to fix placing wine bottles
     @Override
     protected BlockState getPlacementState(BlockPlaceContext context) {
         return null;
