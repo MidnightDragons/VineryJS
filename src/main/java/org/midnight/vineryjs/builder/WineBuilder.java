@@ -27,6 +27,7 @@ public class WineBuilder extends BlockBuilder {
     public transient int amplifier;
     public transient boolean scaleWithAge;
     public transient DrinkBlockItem.BottleSize bottleSize;
+    public transient boolean allowPlacement;
 
     // Constructor with defaults
     public WineBuilder(String id) {
@@ -38,11 +39,12 @@ public class WineBuilder extends BlockBuilder {
         this.blockTexture = resourceID.getNamespace() + "block/" + resourceID.getPath();
         this.itemParentModel = KubeAssetGenerator.GENERATED_ITEM_MODEL;
         this.blockParentModel = ResourceLocation.parse("vinery:block/mellohi_wine");
-        this.effect = null;
-        this.duration = 0;
+        this.effect = ResourceLocation.parse("minecraft:speed");
+        this.duration = 60;
         this.amplifier = 0;
         this.scaleWithAge = false;
-        this.bottleSize = DrinkBlockItem.BottleSize.BIG;
+        this.bottleSize = DrinkBlockItem.BottleSize.SMALL;
+        this.allowPlacement = false;
     }
 
     @Info("Sets the display name of the wine.")
@@ -92,6 +94,12 @@ public class WineBuilder extends BlockBuilder {
     @Info("Sets the size of the bottle used.")
     public WineBuilder bottleSize(String size) {
         this.bottleSize = DrinkBlockItem.BottleSize.valueOf(size.toUpperCase());
+        return this;
+    }
+
+    @Info("Can the bottle be placed on the ground?")
+    public WineBuilder allowPlacement(boolean allow) {
+        this.allowPlacement = allow;
         return this;
     }
 

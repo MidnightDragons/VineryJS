@@ -76,7 +76,8 @@ public class VineryJS {
                     block,
                     new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().build()),
                     builder.scaleWithAge,
-                    builder.bottleSize
+                    builder.bottleSize,
+                    builder.allowPlacement
             );
 
             if (builder.effect != null) {

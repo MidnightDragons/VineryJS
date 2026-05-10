@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class VineryJSConfig {
     public static boolean debugLogging = false;
-    public static boolean allowPlacement = false;
+    public static boolean globalAllowPlacement = false;
 
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC;
@@ -20,8 +20,8 @@ public class VineryJSConfig {
         BUILDER.pop();
 
         BUILDER.push("general");
-        ALLOW_PLACEMENT = BUILDER.comment("Allow custom wines to be placed as blocks")
-                .define("allowPlacement", false);
+        ALLOW_PLACEMENT = BUILDER.comment("Globally allow custom wines to be placed as blocks")
+                .define("universalAllowPlacement", false);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
@@ -29,7 +29,7 @@ public class VineryJSConfig {
 
     public static void bake() {
         debugLogging = DEBUG_LOGGING.get();
-        allowPlacement = ALLOW_PLACEMENT.get();
+        globalAllowPlacement = ALLOW_PLACEMENT.get();
     }
 
     @SubscribeEvent
