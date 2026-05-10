@@ -10,7 +10,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.satisfy.vinery.core.block.WineBottleBlock;
@@ -29,7 +31,8 @@ public class VineryJS {
     public static final String MOD_ID = "vineryjs";
     private static final List<WineBuilder> pendingWines = new ArrayList<>();
 
-    public VineryJS(IEventBus modEventBus) {
+    public VineryJS(IEventBus modEventBus, ModContainer container) {
+        container.registerConfig(ModConfig.Type.COMMON, VineryJSConfig.SPEC);
         modEventBus.addListener(this::onRegisterBlocks);
         modEventBus.addListener(this::onRegisterItems);
         modEventBus.addListener(this::loadComplete);
