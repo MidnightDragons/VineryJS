@@ -42,7 +42,7 @@ public class WineBuilder extends BlockBuilder {
         this.effect = ResourceLocation.parse("minecraft:speed");
         this.duration = 60;
         this.amplifier = 0;
-        this.scaleWithAge = true;
+        this.scaleWithAge = false;
         this.bottleSize = DrinkBlockItem.BottleSize.SMALL;
         this.allowPlacement = false;
     }
@@ -85,15 +85,27 @@ public class WineBuilder extends BlockBuilder {
         return this;
     }
 
-    @Info("Sets if the wine should scale its effects with age.")
+    @Info("Sets the size of the bottle used.")
+    public WineBuilder bottleSize(String size) {
+        this.bottleSize = DrinkBlockItem.BottleSize.valueOf(size.toUpperCase());
+        return this;
+    }
+
+    @Info("Makes the wine scale its effects with age.")
+    public WineBuilder scaleWithAge() {
+        this.scaleWithAge = true;
+        return this;
+    }
+
+    @Info("Does the wine scale its effects with age?")
     public WineBuilder scaleWithAge(boolean scale) {
         this.scaleWithAge = scale;
         return this;
     }
 
-    @Info("Sets the size of the bottle used.")
-    public WineBuilder bottleSize(String size) {
-        this.bottleSize = DrinkBlockItem.BottleSize.valueOf(size.toUpperCase());
+    @Info("Enables the bottle to be placed on the ground.")
+    public WineBuilder allowPlacement() {
+        this.allowPlacement = true;
         return this;
     }
 
