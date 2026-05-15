@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public class DrinkBlockItemMixin implements DrinkBlockItemDuck {
     @Final
     @Mutable
-    @Shadow
+    @Shadow(remap = false)
     private boolean scaleDurationWithAge;
 
     @SuppressWarnings("AddedMixinMembersNamePattern")

@@ -16,7 +16,9 @@ public class VineryJSPlugin implements KubeJSPlugin {
 
     @Override
     public void generateAssets(KubeAssetGenerator generator) {
-        for (var builder : RegisterWineEvent.COLLECTED) {
+        if (RegisterWineEvent.LAST == null) return;
+
+        for (var builder : RegisterWineEvent.LAST.builders) {
             generator.itemModel(builder.resourceID, m -> {
                 m.parent(builder.itemParentModel);
                 m.texture("layer0", builder.itemTexture);
@@ -30,7 +32,7 @@ public class VineryJSPlugin implements KubeJSPlugin {
 
             // noinspection CodeBlock2Expr
             generator.blockState(builder.resourceID, b -> {
-                b.simpleVariant("", builder.itemParentModel);
+                b.simpleVariant("", builder.blockParentModel);
             });
         }
     }
@@ -41,9 +43,22 @@ public class VineryJSPlugin implements KubeJSPlugin {
 
     @Override
     public void generateLang(LangKubeEvent lang) {
-        for (var builder : RegisterWineEvent.COLLECTED) {
+        if (RegisterWineEvent.LAST == null) {
+            VineryJS.log("GenerateLang called but LAST is null!");
+            return;
+        }
+
+        VineryJS.log("GenerateLang called, builders: " + RegisterWineEvent.LAST.builders.size());
+
+        for (var builder : RegisterWineEvent.LAST.builders) {
+            VineryJS.log("Generating lang for " + builder + ".");
+            VineryJS.log("  Namespace: " + builder.resourceID.getNamespace());
+            VineryJS.log("  Key: " + getItemLangID(builder, "item"));
+            VineryJS.log("  Value: " + builder.displayName);
             lang.add(builder.resourceID.getNamespace(), getItemLangID(builder, "item"), builder.displayName);
             lang.add(builder.resourceID.getNamespace(), getItemLangID(builder, "block"), builder.displayName);
         }
+
+        lang.add("vineryjs", "itemGroup.vineryjs.tab", "VineryJS");
     }
 }

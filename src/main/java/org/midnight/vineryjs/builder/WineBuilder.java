@@ -11,6 +11,7 @@ import dev.latvian.mods.rhino.util.ReturnsSelf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.satisfy.vinery.core.item.DrinkBlockItem;
+import org.midnight.vineryjs.VineryJS;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @ReturnsSelf
@@ -35,8 +36,8 @@ public class WineBuilder extends BlockBuilder {
         this.info = new BlockEntityInfo(this);
         this.resourceID = ResourceLocation.parse(id);
         this.displayName = StringUtilsWrapper.snakeCaseToTitleCase(resourceID.getPath());
-        this.itemTexture = resourceID.getNamespace() + "item/" + resourceID.getPath();
-        this.blockTexture = resourceID.getNamespace() + "block/" + resourceID.getPath();
+        this.itemTexture = resourceID.getNamespace() + ":item/" + resourceID.getPath();
+        this.blockTexture = resourceID.getNamespace() + ":block/" + resourceID.getPath();
         this.itemParentModel = KubeAssetGenerator.GENERATED_ITEM_MODEL;
         this.blockParentModel = ResourceLocation.parse("vinery:block/mellohi_wine");
         this.effect = ResourceLocation.parse("minecraft:speed");
@@ -47,9 +48,11 @@ public class WineBuilder extends BlockBuilder {
         this.allowPlacement = false;
     }
 
+    // Changed from displayName() to wineName() due to conflicting function names.
     @Info("Sets the display name of the wine.")
-    public WineBuilder displayName(String name) {
+    public WineBuilder wineName(String name) {
         displayName = name;
+        VineryJS.log("wineName() called with: " + name);
         return this;
     }
 

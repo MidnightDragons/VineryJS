@@ -3,6 +3,7 @@ package org.midnight.vineryjs;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -23,14 +24,19 @@ import org.midnight.vineryjs.builder.WineDrinkItem;
 import org.midnight.vineryjs.event.ModifyWineEvent;
 import org.midnight.vineryjs.event.RegisterWineEvent;
 import org.midnight.vineryjs.event.VineryEvents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Mod(VineryJS.MOD_ID)
 public class VineryJS {
     public static final String MOD_ID = "vineryjs";
     private static final List<WineBuilder> pendingWines = new ArrayList<>();
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public VineryJS(IEventBus modEventBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, VineryJSConfig.SPEC);
@@ -38,6 +44,7 @@ public class VineryJS {
         modEventBus.addListener(this::onRegisterBlocks);
         modEventBus.addListener(this::onRegisterItems);
         modEventBus.addListener(this::loadComplete);
+        CREATIVE_TABS.register(modEventBus);
     }
 
     public static void log(String message) {
@@ -45,6 +52,20 @@ public class VineryJS {
             System.out.println("[VineryJS] " + message);
         }
     }
+
+    @SuppressWarnings("unused")
+    public static final Supplier<CreativeModeTab> TAB = CREATIVE_TABS.register("tab", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.vineryjs.tab"))
+                    .icon(() -> BuiltInRegistries.ITEM.get(ResourceLocation.parse("vinery:mellohi_wine")).getDefaultInstance())
+                    .displayItems((params, output) -> {
+                        for (WineBuilder builder : pendingWines) {
+                            Item item = BuiltInRegistries.ITEM.get(builder.resourceID);
+                            output.accept(item);
+                        }
+                    })
+                    .build()
+    );
 
     private static BlockBehaviour.Properties getWineSettings() {
         return BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noOcclusion().instabreak();
@@ -63,6 +84,7 @@ public class VineryJS {
                     2
             );
 
+            VineryJS.log(builder + " block created with id: " + builder.resourceID.getPath());
             event.register(Registries.BLOCK, builder.resourceID, () -> block);
         }
     }
@@ -85,8 +107,7 @@ public class VineryJS {
                 ITEM.setEffectSupplier(() -> effectHolder, builder.duration, builder.amplifier);
             }
 
-            VineryJS.log(builder + " created with id: " + builder.resourceID.getPath());
-
+            VineryJS.log(builder + " item created with id: " + builder.resourceID.getPath());
             event.register(Registries.ITEM, builder.resourceID, () -> ITEM);
         }
     }
